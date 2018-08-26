@@ -1,0 +1,11 @@
+{
+    "name": "LTPBot",
+    "version": "0.1",
+    "description": "Looking To Play Bot",
+    "main": "main.js",
+    "author": "Andrew Zheng",
+    "dependencies": {
+        "discord.io": "^2.5.3",
+        "winston": "^3.0.0"
+    }
+}
