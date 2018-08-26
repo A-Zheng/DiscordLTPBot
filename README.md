@@ -8,13 +8,15 @@ No public auth token.
 
 Wanted functionalities:
 
--Ability for people to add themselves to a queue for those who want to play a specific game with others.
+-Ability for people to add themselves to a queue for those who want to play with others.
 
--Ping people when there are enough people to play
+-Display queues
 
 -Ability to set amount of people to play
 
--Ability to set different games
+-Ping people when there are enough people to play
+
+-Ability to set specific and different games
 
 -Waitlist
 
@@ -23,3 +25,5 @@ Wanted functionalities:
 -Put onto AWS Server?
 
 -If user goes away, or offline, take off of queue
+
+-If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
