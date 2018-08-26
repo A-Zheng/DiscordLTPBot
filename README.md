@@ -17,3 +17,7 @@ Wanted functionalities:
 -Ability to set different games
 
 -Waitlist
+
+-Ability to add amount of time available (i.e. take me off queue after x amount of time)
+
+-Put onto AWS Server?
