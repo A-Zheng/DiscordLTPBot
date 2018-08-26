@@ -21,3 +21,5 @@ Wanted functionalities:
 -Ability to add amount of time available (i.e. take me off queue after x amount of time)
 
 -Put onto AWS Server?
+
+-If user goes away, or offline, take off of queue
