@@ -17,7 +17,7 @@ var bot = new Discord.Client({
 });
 
 // test queue
-var queue1 = new Queue(1);
+//var queue1 = new Queue(1);
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
