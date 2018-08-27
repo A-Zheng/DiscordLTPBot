@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 var auth = require('./auth.json');
+var config = require('./config.json');
 var Queue = require('./queue.js');
 
 // Messages ----------------------------------------------------------
@@ -53,12 +54,8 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-	/*if (message.content === '!ping') {
-		message.channel.send('Pong.');
-    }*/
-    
     // Bot listens for messages that will start with `!`
-    if (message.content.substring(0, 1) == '!') {
+    if (message.content.substring(0, 1) == config.prefix) {
         var args = message.content.substring(1).split(' ');
         var cmd = args[0]
        
@@ -71,9 +68,11 @@ client.on('message', message => {
             break;
 
             case '5q':
-            message.channel.send(helpMsg);
+                message.channel.send(helpMsg);
+
+
             
-            //var queue5qTest = new Queue("5q", 5);
+                //var queue5qTest = new Queue("5q", 5);
                 //if Queue
 
             break;
