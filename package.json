@@ -2,10 +2,11 @@
     "name": "LTPBot",
     "version": "0.0.1",
     "description": "Looking To Play Bot",
-    "main": "bot.js",
+    "main": "botdisc.js",
     "author": "Andrew Zheng",
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "discord.js": "^11.4.2",
         "winston": "^3.0.0"
     }
 }
