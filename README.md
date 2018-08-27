@@ -14,7 +14,7 @@ Wanted functionalities:
 
 -Ability to set amount of people to play
 
--Ping people when there are enough people to play
+-Ping people when there are enough people to play, if queue becomes empty, close down the queue
 
 -Ability to set specific and different games
 
