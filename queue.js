@@ -7,15 +7,29 @@ function Queue(name, popAmt) {
 }
 
 method.isEmpty = function() {
-    return (this.queue.length === 0);
+    return (this._queue.length === 0);
 };
 
-method.pushToQueue = function(name) {
-
+method.pushToQueue = function(toPush) {
+    this._queue.push(toPush);
 };
 
-method.popQueue = function(amt) {
+// fix this and add an amount to pop
+method.popQueue = function() {
+    popped = [];
+    
+    for (i = 0; i < this._popAmt; ++i) {
+        popped.push(this._queue.shift());
+        console.log(popped);
+    }
+    console.log(popped);
+    return popped;
+};
 
+method.isReadyPop = function() {
+    console.log("this queue length: " + this._queue.length);
+    console.log("this queue length: " + this._popAmt);
+    return (this._queue.length >= this._popAmt);
 };
 
 method.getQueueName = function() {
@@ -24,6 +38,14 @@ method.getQueueName = function() {
 
 method.getQueue = function() {
     return this._queue;
+};
+
+method.getQueueLength = function() {
+    return this._queue.length;
+};
+
+method.getPopAmt = function() {
+    return this._popAmt;
 };
 
 module.exports = Queue;
