@@ -24,9 +24,9 @@ Abstraction
 
 - [ ] Users should be unique in a queue. Have not implemented due to having to test. (Don't want to create multiple discord accounts yet)
 
-- [ ] Creation of multiple queues
+- [x] Creation of multiple queues
 
-- [ ] Ability to set amount of people to play
+- [x] Ability to set amount of people to play
 
 - [ ] Ability to add amount of time available (i.e. take me off queue after x amount of time)
 
