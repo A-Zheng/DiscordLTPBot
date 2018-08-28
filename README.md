@@ -6,6 +6,8 @@ To run/test, run node bot.js.
 
 No public auth token.
 
+This project is licensed under the MIT License.
+
 Wanted functionalities:
 
 Basic Functionality Case : 5q (Queue of 5)
