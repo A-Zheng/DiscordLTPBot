@@ -8,22 +8,28 @@ No public auth token.
 
 Wanted functionalities:
 
--Ability for people to add themselves to a queue for those who want to play with others.
+Basic Functionality Case : 5q (Queue of 5)
 
--Display queues
+- [x] Ability for people to add themselves to a queue for those who want to play with others.
 
--Ability to set amount of people to play
+- [x] Display queues
 
--Ping people when there are enough people to play, if queue becomes empty, close down the queue
+- [x] Ping people when there are enough people
 
--Ability to set specific and different games
+- [ ] Remove user from queue
 
--Waitlist
+Abstraction
 
--Ability to add amount of time available (i.e. take me off queue after x amount of time)
+- [ ] Creation of multiple queues
 
--Put onto AWS Server?
+- [ ] Ability to set amount of people to play
 
--If user goes away, or offline, take off of queue
+- [ ] Ability to add amount of time available (i.e. take me off queue after x amount of time)
 
--If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
+- [ ] If user goes away, or offline, take off of queue
+
+- [ ] If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
+
+- [ ] Deploy onto AWS (free EC2) Server?
+
+- [ ] Improve search/remove time. Optimize. Make it scalable.
