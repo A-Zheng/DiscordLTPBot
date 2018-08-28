@@ -20,7 +20,7 @@ Basic Functionality Case : 5q (Queue of 5)
 
 Abstraction
 
-- [ ]Creation of multiple queues
+- [ ] Creation of multiple queues
 
 - [ ] Ability to set amount of people to play
 
