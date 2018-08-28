@@ -6,6 +6,8 @@ To run/test, run node bot.js.
 
 No public auth token.
 
+This project is licensed under the MIT License.
+
 Wanted functionalities:
 
 Basic Functionality Case : 5q (Queue of 5)
@@ -16,13 +18,15 @@ Basic Functionality Case : 5q (Queue of 5)
 
 - [x] Ping people when there are enough people
 
-- [ ] Remove user from queue
+- [x] Remove user from queue
 
 Abstraction
 
-- [ ] Creation of multiple queues
+- [ ] Users should be unique in a queue. Have not implemented due to having to test. (Don't want to create multiple discord accounts yet)
 
-- [ ] Ability to set amount of people to play
+- [x] Creation of multiple queues
+
+- [x] Ability to set amount of people to play
 
 - [ ] Ability to add amount of time available (i.e. take me off queue after x amount of time)
 
