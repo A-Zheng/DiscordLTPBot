@@ -22,17 +22,19 @@ Basic Functionality Case : 5q (Queue of 5)
 
 Abstraction
 
-- [ ] Users should be unique in a queue. Have not implemented due to having to test. (Don't want to create multiple discord accounts yet)
-
 - [x] Creation of multiple queues
 
 - [x] Ability to set amount of people to play
+
+- [ ] Users should be unique in a queue. Have not implemented due to having to test. (Don't want to create multiple discord accounts yet)
+
+- [ ] Queue names should be unique.
 
 - [ ] Ability to add amount of time available (i.e. take me off queue after x amount of time)
 
 - [ ] If user goes away, or offline, take off of queue
 
-- [ ] If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
+- [ ] If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in (is this necessary?)
 
 - [ ] Deploy onto AWS (free EC2) Server?
 
