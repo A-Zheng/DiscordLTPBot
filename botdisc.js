@@ -40,11 +40,19 @@ var leaveAllMsg =
 `You have left all queues.`;
 
 var dispMsg = 
-`Queue Display: `;
+`Queue - `;
+
+var allNameErrorMsg = 
+`'all' cannot be a queue name.`;
+
+var popAmtErrorMsg = 
+`Please enter a value that is 2 or above for queue length.`;
+
+var qPopMsg =
+`The following queue has popped: `;
 // -------------------------------------------------------------------
 
 var Queues = [];
-var fiveQ = new Queue("5q", 5);
 
 var usernameMap = {};
 
@@ -70,89 +78,127 @@ client.on('message', message => {
                 message.channel.send(helpMsg);
             break;
 
-            case '5q':
-            
-                fiveQ.pushToQueue(message.author.id);
-                usernameMap[message.author.id] = message.author.username;
-                // fetch username here as well, and add to dictionary
-
-                console.log(message.author.id);
-                console.log(usernameMap[message.author.id]);
-
-
-                /*// add a item
-                map[key1] = value1;
-                // or remove it
-                delete map[key1];
-                // or determine whether a key exists
-                key1 in map;*/
-
-                if (fiveQ.isReadyPop()) {
-                    let userArray = fiveQ.popQueue();
-                    let poppedMsg = "Queue for x has popped:" ;
-
-                    console.log(fiveQ.getQueueLength());
-
-                    console.log(userArray[0]);
-
-                    for (let i = 0; i < fiveQ.getPopAmt(); ++i) {
-                        poppedMsg += ` <@${userArray[i]}>`;
-                    }
-
-                    message.channel.send(poppedMsg);
-                }
-                
-            break;
-
-            // !create <popAmt> <queue name> -- create queue with amount of people
+            // !create <popAmt> <queue name> -- create queue with amount of people, adds the user in
+            // for now, queue name must have no spaces
+            // Have to make it so there can't be multiple of the same name of queue
             case 'create':
 
-                if (args.length < 2) {
+                if (args.length != 2) {
                     message.channel.send(errorMsg);
+                } else if (args[0] === "all") {
+                    message.channel.send(allNameErrorMsg);
+                } else if (args[1] <= 1) {
+                    message.channel.send(popAmtErrorMsg);
+                } else {
+                    let newQueue = new Queue(args[1], args[0]);
+                    newQueue.pushToQueue(message.author.id);
+                    usernameMap[message.author.id] = message.author.username;
+                    Queues.push(newQueue);
+                    message.channel.send(createMsg + args[1]);
                 }
-
-                // can't allow "all" to be a queue name
-                // queue name needs to be one word
-
-                message.channel.send(createMsg);
 
             break;
 
             // !add <queue name> -- add to which queue?
             // can't be added twice to the same queue
             case 'add':
-                message.channel.send(addMsg);
+                
+                if (args.length != 1) {
+                    message.channel.send(errorMsg);
+                } else {
+                    for (let i = 0; i < Queues.length; ++i) {
+                        if (args[0] === Queues[i].getQueueName()) {
+                            Queues[i].pushToQueue(message.author.id);
+                            usernameMap[message.author.id] = message.author.username;
+                            message.channel.send(addMsg + args[0]);
+                        }
+
+                        if (Queues[i].isReadyPop()) {
+                            let userArray = Queues[i].popQueue();
+        
+                            console.log(Queues[i].getQueueLength());
+        
+                            console.log(userArray[0]);
+        
+                            for (let j = 0; j < Queues[i].getPopAmt(); ++j) {
+                                poppedMsg += ` <@${userArray[j]}>`;
+                            }
+        
+                            message.channel.send(qPopMsg + args[0]);
+                        }
+                    }
+                }
+
             break;
 
             // !leave <queue name> -- leave queue
+            // !leave all -- leave all queues
             case 'leave':
 
-                let result = fiveQ.findAndRemove(message.author.id);
+                if (args.length != 1) {
+                    message.channel.send(errorMsg);
+                } else if (args[0] === "all") {
 
-                console.log("Removed from queue.")
-            
-                message.channel.send(leaveAllMsg);
-            
-                message.channel.send(leaveMsg);
+                    for (let i = 0; i < Queues.length; ++i) {
+                        let result = Queues[i].findAndRemove(message.author.id);
+                    }
+                    message.channel.send(leaveAllMsg);
+
+                } else {
+                    for (let i = 0; i < Queues.length; ++i) {
+                        if (Queues[i].getQueueName() === args[0]) {
+                            let result = Queues[i].findAndRemove(message.author.id);
+                            message.channel.send(leaveMsg + args[0]);
+                        }
+                    }
+                }
 
             break;
 
             // !disp all vs name-- have to add arguments for name
             case 'disp':
-                let dispQMsg = dispMsg;
-                let fetchQueue = fiveQ.getQueue();
-                let fetchedUsernames = [];
-                for (let i = 0; i < fetchQueue.length; ++i) {
-                    if (fetchQueue[i] in usernameMap) {
-                        fetchedUsernames.push(usernameMap[fetchQueue[i]]);
-                        dispQMsg += " " + usernameMap[fetchQueue[i]];
-                    } else {
-                        console.log("ERROR IN FETCHING USERNAME");
+                
+                if (args.length != 1) {
+                    message.channel.send(errorMsg);
+                } else if (args[0] === "all") {
+                    let dispQMsg = `
+                    `;
+                    for (let i = 0; i < Queues.length; ++i) {
+                        dispQMsg += `${dispMsg} `
+                        let fetchQueue = Queues[i].getQueue();
+                        for (let i = 0; i < fetchQueue.length; ++i) {
+                            if (fetchQueue[i] in usernameMap) {
+                                //fetchedUsernames.push(usernameMap[fetchQueue[i]]);
+                                dispQMsg += ` ${usernameMap[fetchQueue[i]]}`;
+                            } else {
+                                console.log("ERROR IN FETCHING USERNAME");
+                            }
+                            dispQMsg += 
+                            `
+                            `;
+                        }
+                    }
+                    message.channel.send(dispQMsg);
+                } else {
+                    // Implement hash map for O(1) retrival of if it's actually a name
+                    for (let i = 0; i < Queues.length; ++i) {
+                        if (args[0] === Queues[i].getQueueName()) {
+                            let dispQMsg = dispMsg + ` ${Queues[i].getQueueName()}`;
+                            let fetchQueue = Queues[i].getQueue();
+                            for (let i = 0; i < fetchQueue.length; ++i) {
+                                if (fetchQueue[i] in usernameMap) {
+                                    //fetchedUsernames.push(usernameMap[fetchQueue[i]]);
+                                    dispQMsg += " " + usernameMap[fetchQueue[i]];
+                                } else {
+                                    console.log("ERROR IN FETCHING USERNAME");
+                                }
+                            }
+                            message.channel.send(dispQMsg);
+                        }
                     }
                 }
+            
                 
-                message.channel.send(dispQMsg);
-                // get names
             break;
 
             case '.dev.exit.':
