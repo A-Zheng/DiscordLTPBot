@@ -30,6 +30,6 @@ Abstraction
 
 - [ ] If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
 
-- [ ] Deploy onto AWS Server?
+- [ ] Deploy onto AWS (free EC2) Server?
 
-- [ ] Improve search/remove time. Optimize.
+- [ ] Improve search/remove time. Optimize. Make it scalable.
