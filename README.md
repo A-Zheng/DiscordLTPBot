@@ -16,9 +16,11 @@ Basic Functionality Case : 5q (Queue of 5)
 
 - [x] Ping people when there are enough people
 
-- [ ] Remove user from queue
+- [x] Remove user from queue
 
 Abstraction
+
+- [ ] Users should be unique in a queue. Have not implemented due to having to test. (Don't want to create multiple discord accounts yet)
 
 - [ ] Creation of multiple queues
 
