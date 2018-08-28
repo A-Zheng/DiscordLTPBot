@@ -14,11 +14,10 @@ method.pushToQueue = function(toPush) {
     this._queue.push(toPush);
 };
 
-// fix this and add an amount to pop
 method.popQueue = function() {
     popped = [];
     
-    for (i = 0; i < this._popAmt; ++i) {
+    for (let i = 0; i < this._popAmt; ++i) {
         popped.push(this._queue.shift());
         console.log(popped);
     }
@@ -48,12 +47,17 @@ method.getPopAmt = function() {
     return this._popAmt;
 };
 
-module.exports = Queue;
+method.findAndRemove = function(item) {
+    if (this._queue.find(function(element) 
+        { return element == item; })) {
+        let ind = this._queue.indexOf(item);
+        this._queue.splice(ind, 1);
+        console.log("Queue after removal: " + this._queue);
+        return true;
+    } else {
+        console.log("Could not find " + item + "in queue" + this._name);
+        return false;
+    }
+}
 
-/*
-var queue = [];
-queue.push(2);         // queue is now [2]
-queue.push(5);         // queue is now [2, 5]
-var i = queue.shift(); // queue is now [5]
-alert(i);              // displays 2
-*/
+module.exports = Queue;

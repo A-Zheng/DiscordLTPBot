@@ -46,6 +46,8 @@ var dispMsg =
 var Queues = [];
 var fiveQ = new Queue("5q", 5);
 
+var usernameMap = {};
+
 client.login(auth.token);
 
 client.on('ready', () => {
@@ -57,8 +59,8 @@ client.on('ready', () => {
 client.on('message', message => {
     // Bot listens for messages that will start with `!`
     if (message.content.substring(0, 1) == config.prefix) {
-        var args = message.content.substring(1).split(' ');
-        var cmd = args[0];
+        let args = message.content.substring(1).split(' ');
+        let cmd = args[0];
        
         args = args.splice(1);
 
@@ -71,18 +73,29 @@ client.on('message', message => {
             case '5q':
             
                 fiveQ.pushToQueue(message.author.id);
+                usernameMap[message.author.id] = message.author.username;
+                // fetch username here as well, and add to dictionary
 
                 console.log(message.author.id);
+                console.log(usernameMap[message.author.id]);
+
+
+                /*// add a item
+                map[key1] = value1;
+                // or remove it
+                delete map[key1];
+                // or determine whether a key exists
+                key1 in map;*/
 
                 if (fiveQ.isReadyPop()) {
-                    var userArray = fiveQ.popQueue();
-                    var poppedMsg = "Queue for x has popped:" ;
+                    let userArray = fiveQ.popQueue();
+                    let poppedMsg = "Queue for x has popped:" ;
 
                     console.log(fiveQ.getQueueLength());
 
                     console.log(userArray[0]);
 
-                    for (i = 0; i < fiveQ.getPopAmt(); ++i) {
+                    for (let i = 0; i < fiveQ.getPopAmt(); ++i) {
                         poppedMsg += ` <@${userArray[i]}>`;
                     }
 
@@ -114,6 +127,10 @@ client.on('message', message => {
             // !leave <queue name> -- leave queue
             case 'leave':
 
+                let result = fiveQ.findAndRemove(message.author.id);
+
+                console.log("Removed from queue.")
+            
                 message.channel.send(leaveAllMsg);
             
                 message.channel.send(leaveMsg);
@@ -122,7 +139,19 @@ client.on('message', message => {
 
             // !disp all vs name-- have to add arguments for name
             case 'disp':
-                message.channel.send(dispMsg);
+                let dispQMsg = dispMsg;
+                let fetchQueue = fiveQ.getQueue();
+                let fetchedUsernames = [];
+                for (let i = 0; i < fetchQueue.length; ++i) {
+                    if (fetchQueue[i] in usernameMap) {
+                        fetchedUsernames.push(usernameMap[fetchQueue[i]]);
+                        dispQMsg += " " + usernameMap[fetchQueue[i]];
+                    } else {
+                        console.log("ERROR IN FETCHING USERNAME");
+                    }
+                }
+                
+                message.channel.send(dispQMsg);
                 // get names
             break;
 
