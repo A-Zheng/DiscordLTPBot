@@ -27,3 +27,5 @@ Wanted functionalities:
 -If user goes away, or offline, take off of queue
 
 -If a person is in multiple queues, and one queue pops with his name, and he is pinged, remove him from other queues that he is in
+
+-Improve search/remove time. Optimize.
